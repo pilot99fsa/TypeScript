@@ -25,7 +25,7 @@ let array1 = [true, false, true]; //俺もboolean型である
 
 let array2 = [0, 1, 'hello']; // 型推論でstring | numberと表示される。これはstring型もしくはnumber型を持つという意味である
 
-const name2 = 'hello'; //これをマウスホバーすると型推論でhelloと具体的な文字列になっている。これはリテラル型と呼ばれる。文字列リテラル
+const name2 = 'hello'; //これをマウスホバーすると型推論でhelloと具体的な文字列になっている。これはリテラル型 Literal typesと呼ばれる。文字列リテラル
 
 interface NAME {
   //オブジェクトの方の定義にはinterfaceを用いる
@@ -94,6 +94,33 @@ let arrayUni: (number | string)[];
 arrayUni = [0, 1, 2, 3, 4, 'Hello']; //１つ上のコードでnumber型とstring型を指定しているのでエラーは起こらない
 // 試しにtrueを足すとエラーが起こる
 // このように配列にもunion typesは使える
+
+///////////////////////////////////////////////////
+
+// Union typeと Literal typesを組み合わせる
+
+let company: 'Facebook' | 'Google' | 'Amazon';
+company = 'Amazon'; // エラーは起こらない
+// company = 'Apple'; // エラー!
+
+let memory: 256 | 512;
+// memory = 12; エラー!
+memory = 256; // エラーは起こらない
+
+/////////////////////////////////////////////////////
+
+// typeof
+// 宣言済みの変数の型を取得する
+
+let msg: string = 'Hi';
+let msg2: typeof msg; // msgの型を取得している。msg2にホバーするとstring型になっていることがわかる
+msg2 = 'Hello';
+// msg2 = 1; エラー！
+
+// オブジェクトの方にも適用できる
+
+let animal = { cat: 'small cat' }; //型推論が効いて、catはstringとなっている
+let newAnimal: typeof animal = { cat: 'big cat' }; //エラーは起こらない。catはstring型であるという情報を継承している
 
 /* eslint-disable */
 function App() {
