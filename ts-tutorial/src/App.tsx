@@ -122,6 +122,33 @@ msg2 = 'Hello';
 let animal = { cat: 'small cat' }; //型推論が効いて、catはstringとなっている
 let newAnimal: typeof animal = { cat: 'big cat' }; //エラーは起こらない。catはstring型であるという情報を継承している
 
+///////////////////////////////////////////////////////
+
+// keyof
+
+type KEYS = {
+  praimary: string;
+  secondary: string;
+};
+
+let key: keyof KEYS; // KEYSにホバーすると、データの型に primaryかsecondaryのみをkeyという変数は受け付けることが分かる
+key = 'praimary'; //keyに何か代入しようとしてもprimaryかsecondaryしか受け付けない
+
+// typeofとkeyofの併用
+
+const SPORTS = {
+  soccer: 'Soccer',
+  baseball: 'Baseball',
+};
+
+let keySports: keyof typeof SPORTS; // typeofでSPORTSが持つデータ型を継承している
+// keySportsに何か代入しようとしてもSPORTSから属性を取り出してUnion typeにしている。
+//"soccer"か"baseball"しか受け付けない(エラーを吐く)
+keySports = 'soccer';
+keySports = 'baseball';
+// keySports = soccer; エラー
+// keySports = 'Soccer'; エラー
+
 /* eslint-disable */
 function App() {
   return (
