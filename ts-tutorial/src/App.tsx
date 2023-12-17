@@ -149,6 +149,38 @@ keySports = 'baseball';
 // keySports = soccer; エラー
 // keySports = 'Soccer'; エラー
 
+/////////////////////////////////////////////
+
+// enum(列挙型)
+
+enum OS {
+  Windows,
+  Mac,
+  Linux,
+} // このように記述すると自動で連番(0~2)が作られる
+
+//この機能の使い方
+
+//まずPCのオブジェクトを作る。id(数字型)とOSTypeを作り、OSTypeに上で作ったOSを割り当てる
+interface PC {
+  id: number;
+  OSType: OS;
+}
+
+const PC1: PC = {
+  id: 1,
+  OSType: OS.Windows,
+};
+
+const PC2: PC = {
+  id: 2,
+  OSType: OS.Mac, // Macにホバーすると、idに2を指定したにも関わらず、実際は1が割り当てられている。
+};
+
+// enum(列挙型)を使うことで手動でid番号といった数字を呼び出すよりもenumで呼び出す方がバグを防ぎやすく、メンテナンス性も向上する
+
+//////////////////////////////////////////////////////////////////////////
+
 /* eslint-disable */
 function App() {
   return (
