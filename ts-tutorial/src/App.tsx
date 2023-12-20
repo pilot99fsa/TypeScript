@@ -1,8 +1,12 @@
 import React from 'react';
 import './App.css';
+import data from './data.json';
 
 /* eslint-disable */
 // create-react-app
+
+type USERS = typeof data; // USERSにホバーするとJSONデータで定義されているデータを表示できる
+
 // ここに型の種類等についてメモしていく
 
 // letとconstのおさらい
@@ -254,6 +258,10 @@ const gen10 = funcGen3({ price: 10 });
 const funcGen4 = <T extends Props>(props: T) => {
   return { value: props.price };
 };
+
+////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////
 /* eslint-disable */
 function App() {
   return (
