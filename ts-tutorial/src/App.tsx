@@ -181,6 +181,79 @@ const PC2: PC = {
 
 //////////////////////////////////////////////////////////////////////////
 
+// 型の互換性
+
+const comp1 = 'test';
+let comp2: string = comp1; //これはできる
+
+let comp3: string = 'test';
+// let comp4: 'test' = comp3; これはできない
+
+let funcComp1 = (x: number) => {};
+let funcComp2 = (x: string) => {};
+
+// funcComp1 = funcComp2; エラーが起こる！原因は二つの関数の引数のデータ型が異なるため
+
+///////////////////////////////////////////////////////////////////
+
+// ジェネリックス
+
+interface GEN<T> {
+  item: T;
+}
+
+const gen0: GEN<string> = { item: 'hello' };
+// const gen1: GEN = { item: 'hello' }; エラー
+const gen2: GEN<number> = { item: 12 };
+
+//
+
+interface GEN1<T = string> {
+  item: T;
+}
+const gen1: GEN1 = { item: 'hello' }; //エラーが起こらない
+
+// extendsを使うとデータ型を制限できる
+
+interface GEN2<T extends string | number> {
+  //string型かnumber型に制限
+  item: T;
+}
+const gen3: GEN2<string> = { item: 'hello' };
+const gen4: GEN2<number> = { item: 12 };
+// const gen5: GEN2<boolean> = { item: true }; エラー！Boolean型なのでエラーが起こる
+
+// 関数に対するジェネリクスの適用について
+function funcGen<T>(props: T) {
+  return { item: props };
+}
+const gen6 = funcGen('test'); // ここで型を指定しなくても型推論が効いて、gen6にホバーするとitem : stringと表示される
+const gen7 = funcGen<string>('test');
+const gen8 = funcGen<string | null>(null); // null型を指定したらnullも引数に指定できる
+
+function funcGen2<T extends string | null>(props: T) {
+  return { value: props };
+}
+const gen9 = funcGen2('Hello'); // stringとnullgに制限されているので、今回はstringなのでエラーは起こらない
+// const gen10 = funcGen2(123); number型なのでエラー！
+
+//
+
+//Propsの使い方
+
+interface Props {
+  price: number;
+}
+function funcGen3<T extends Props>(props: T) {
+  return { value: props.price };
+}
+
+const gen10 = funcGen3({ price: 10 });
+
+//上のfuncGen3をアロー関数で書き直すと以下のようになる
+const funcGen4 = <T extends Props>(props: T) => {
+  return { value: props.price };
+};
 /* eslint-disable */
 function App() {
   return (
